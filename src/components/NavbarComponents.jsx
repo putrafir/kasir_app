@@ -10,7 +10,10 @@ function NavbarComponents() {
   return (
     <Navbar expand="lg" variant="dark">
       <Container>
-        <Navbar.Brand href="#">Kasir App</Navbar.Brand>
+        <Navbar.Brand href="#">
+          {" "}
+          <strong>Kasir</strong> App
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
