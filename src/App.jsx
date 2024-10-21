@@ -10,6 +10,7 @@ import { Container } from "react-bootstrap";
 import { Hasil, ListCategories, Menus, NavbarComponents } from "./components";
 import { API_URL } from "./utils/constans";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default class App extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ export default class App extends Component {
     this.state = {
       menus: [],
       categoriYangDipilih: "Makanan",
+      keranjangs: [],
     };
   }
 
@@ -50,6 +52,27 @@ export default class App extends Component {
       });
   };
 
+  masukKeranjang = (value) => {
+    const keranjang = {
+      jumlah: 1,
+      total_harga: value.harga,
+      product: value,
+    };
+
+    axios
+      .post(API_URL + "keranjangs", keranjang)
+      .then((res) => {
+        Swal.fire({
+          title: "Sukses!",
+          text: keranjang.product.nama + "telah di tambahkan kek keranjang",
+          icon: "success",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   render() {
     // console.log(this.state.menus);
     const { menus, categoriYangDipilih } = this.state;
@@ -71,7 +94,13 @@ export default class App extends Component {
                 <hr />
                 <Row>
                   {menus &&
-                    menus.map((menu) => <Menus key={menu.id} menu={menu} />)}
+                    menus.map((menu) => (
+                      <Menus
+                        key={menu.id}
+                        menu={menu}
+                        masukKeranjang={this.masukKeranjang}
+                      />
+                    ))}
                 </Row>
               </Col>
               <Hasil />
