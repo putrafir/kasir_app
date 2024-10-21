@@ -56,10 +56,12 @@ export default class ListCategories extends Component {
               categories.map((category) => (
                 <ListGroup.Item
                   key={category.id}
-                  onClick={() => changeCategory(categories.nama)}
+                  onClick={() => changeCategory(category.nama)}
+                  className={
+                    (categoriYangDipilih === category.nama) & "category-aktif"
+                  }
                 >
                   <h5>
-                    {" "}
                     <Icon nama={category.nama} /> {category.nama}
                   </h5>
                 </ListGroup.Item>

@@ -21,14 +21,24 @@ export default class App extends Component {
     };
   }
 
+  componentDidMount() {
+    axios
+      .get(API_URL + "products?categories=" + this.state.categoriYangDipilih)
+      .then((res) => {
+        const menus = res.data;
+        this.setState({ menus });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   changeCategory = (value) => {
     this.setState({
       categoriYangDipilih: value,
       menus: [],
     });
-  };
 
-  componentDidMount() {
     axios
       .get(API_URL + "products?categories=" + value)
       .then((res) => {
@@ -38,7 +48,7 @@ export default class App extends Component {
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
   render() {
     // console.log(this.state.menus);
