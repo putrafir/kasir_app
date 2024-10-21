@@ -51,6 +51,7 @@ export default class ListCategories extends Component {
         <h4>
           <strong>Daftar Kategori</strong>
           <hr />
+
           <ListGroup>
             {categories &&
               categories.map((category) => (
@@ -58,7 +59,7 @@ export default class ListCategories extends Component {
                   key={category.id}
                   onClick={() => changeCategory(category.nama)}
                   className={
-                    (categoriYangDipilih === category.nama) & "category-aktif"
+                    categoriYangDipilih === category.nama && "category-aktif"
                   }
                 >
                   <h5>
