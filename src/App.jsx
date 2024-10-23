@@ -71,6 +71,8 @@ export default class App extends Component {
                 text:
                   keranjang.product.nama + "telah di tambahkan kek keranjang",
                 icon: "success",
+                showConfirmButton: false,
+                timer: 1500,
               });
             })
             .catch((error) => {
@@ -91,6 +93,8 @@ export default class App extends Component {
                 text:
                   keranjang.product.nama + "telah di tambahkan kek keranjang",
                 icon: "success",
+                showConfirmButton: false,
+                timer: 1500,
               });
             })
             .catch((error) => {
