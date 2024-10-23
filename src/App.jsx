@@ -53,20 +53,50 @@ export default class App extends Component {
   };
 
   masukKeranjang = (value) => {
-    const keranjang = {
-      jumlah: 1,
-      total_harga: value.harga,
-      product: value,
-    };
-
     axios
-      .post(API_URL + "keranjangs", keranjang)
+      .get(API_URL + "keranjangs?product.id=" + value.id)
       .then((res) => {
-        Swal.fire({
-          title: "Sukses!",
-          text: keranjang.product.nama + "telah di tambahkan kek keranjang",
-          icon: "success",
-        });
+        if (res.data.length === 0) {
+          const keranjang = {
+            jumlah: 1,
+            total_harga: value.harga,
+            product: value,
+          };
+
+          axios
+            .post(API_URL + "keranjangs", keranjang)
+            .then((res) => {
+              Swal.fire({
+                title: "Sukses!",
+                text:
+                  keranjang.product.nama + "telah di tambahkan kek keranjang",
+                icon: "success",
+              });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          const keranjang = {
+            jumlah: res.data[0].jumlah + 1,
+            total_harga: res.data[0].total_harga + value.harga,
+            product: value,
+          };
+
+          axios
+            .put(API_URL + "keranjangs/" + res.data[0].id, keranjang)
+            .then((res) => {
+              Swal.fire({
+                title: "Sukses!",
+                text:
+                  keranjang.product.nama + "telah di tambahkan kek keranjang",
+                icon: "success",
+              });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
       })
       .catch((error) => {
         console.log(error);
