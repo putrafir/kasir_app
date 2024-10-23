@@ -54,7 +54,7 @@ export default class App extends Component {
 
   masukKeranjang = (value) => {
     axios
-      .get(API_URL + "keranjangs?product.id=" + value.id)
+      .get(API_URL + "keranjangs?product_id=" + value.id)
       .then((res) => {
         if (res.data.length === 0) {
           const keranjang = {
