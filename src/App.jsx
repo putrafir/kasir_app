@@ -33,6 +33,30 @@ export default class App extends Component {
       .catch((error) => {
         console.log(error);
       });
+
+    axios
+      .get(API_URL + "keranjangs")
+      .then((res) => {
+        const keranjangs = res.data;
+        this.setState({ keranjangs });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  componentDidUpdate(prevState) {
+    if (this.state.keranjangs !== prevState.keranjangs) {
+      axios
+        .get(API_URL + "keranjangs")
+        .then((res) => {
+          const keranjangs = res.data;
+          this.setState({ keranjangs });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   changeCategory = (value) => {
@@ -109,7 +133,7 @@ export default class App extends Component {
 
   render() {
     // console.log(this.state.menus);
-    const { menus, categoriYangDipilih } = this.state;
+    const { menus, categoriYangDipilih, keranjangs } = this.state;
     return (
       <div className="App">
         <NavbarComponents />
@@ -137,7 +161,7 @@ export default class App extends Component {
                     ))}
                 </Row>
               </Col>
-              <Hasil />
+              <Hasil keranjangs={keranjangs} />
             </Row>
           </Container>
         </div>
