@@ -12,6 +12,7 @@ const TotalBayar = ({ keranjangs }) => {
 
   const submitTotalBayar = (TotalBayar) => {
     const pesanan = {
+      keranjang_ids: keranjangs.map((keranjang) => keranjang.id),
       total_bayar: TotalBayar,
       menus: keranjangs,
     };
