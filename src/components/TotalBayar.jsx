@@ -17,8 +17,6 @@ const TotalBayar = ({ keranjangs }) => {
       menus: keranjangs,
     };
 
-    console.log("Request data:", pesanan);
-
     axios
       .post(API_URL + "pesanans", pesanan)
       .then((res) => {
