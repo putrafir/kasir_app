@@ -4,6 +4,7 @@ import { numberWithCommas } from "../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const ModalKeranjang = ({
   showModal,
@@ -11,6 +12,10 @@ const ModalKeranjang = ({
   keranjangDetail,
   jumlah,
   keterangan,
+  tambah,
+  kurang,
+  changeHandler,
+  handleSubmit,
 }) => {
   if (keranjangDetail) {
     return (
@@ -25,7 +30,7 @@ const ModalKeranjang = ({
         </Modal.Header>
         <Modal.Body>
           {" "}
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Total Harga :</Form.Label>
               <p>
@@ -37,11 +42,11 @@ const ModalKeranjang = ({
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Jumlah :</Form.Label>
               <br />
-              <Button variant="primary" size="sm" className="mr-2">
+              <Button variant="primary" size="sm" onClick={() => tambah()}>
                 <FontAwesomeIcon icon={faPlus} />
               </Button>
-              <strong>{jumlah}</strong>
-              <Button variant="primary" size="sm" className="ml-2">
+              <strong className="mx-2">{jumlah}</strong>
+              <Button variant="primary" size="sm" onClick={() => kurang()}>
                 {" "}
                 <FontAwesomeIcon icon={faMinus} />{" "}
               </Button>
@@ -58,18 +63,30 @@ const ModalKeranjang = ({
                 name="keterangan"
                 placeholder="Contoh : Pedes, Nasi Setengah"
                 value={keterangan}
+                onChange={(event) => changeHandler(event)}
               />
             </Form.Group>
+            {/* <button variant="primary" type="submit">
+              Simpan
+            </button> */}
+            <Modal.Footer>
+              <Button variant="danger" onClick={handleClose}>
+                <FontAwesomeIcon icon={faTrash} /> Hapus Pesanan
+              </Button>
+              <Button variant="primary" type="submit">
+                Save Changes
+              </Button>
+            </Modal.Footer>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
+        {/* <Modal.Footer>
+          <Button variant="danger" onClick={handleClose}>
+            <FontAwesomeIcon icon={faTrash} /> Hapus Pesanan
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" type="submit">
             Save Changes
           </Button>
-        </Modal.Footer>
+        </Modal.Footer> */}
       </Modal>
     );
   } else {
